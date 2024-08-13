@@ -1,8 +1,8 @@
-const _ = require("lodash");
+const { camelCase, snakeCase } = require("es-toolkit");
 
 function main() {
-  console.log(_.camelCase("Our crazy big home project"));
-  console.log(_.snakeCase("Our crazy big feature update"));
+  console.log(camelCase("Our crazy big home project"));
+  console.log(snakeCase("Our crazy big feature update"));
 }
 
 main();

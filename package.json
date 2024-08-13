@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "lodash": "^4.17.21"
+    "es-toolkit": "^1.15.1"
   }
 }
