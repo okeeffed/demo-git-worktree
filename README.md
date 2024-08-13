@@ -204,6 +204,7 @@ Let's commit and merge to main:
 
 ```sh
 # Commit
+$ git add index.js
 $ git commit -m "feat: added snakecase"
 ```
 
