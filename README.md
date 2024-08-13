@@ -150,7 +150,13 @@ $ node index.js
 ourCrazyBigHomeProject
 ```
 
-Great!
+Great! Let's commit.
+
+```sh
+# Our commit
+$ git add --all
+$ git commit -m "feat: migrated lodash camelCase"
+```
 
 ## Going back for our "new feature"
 
@@ -206,6 +212,84 @@ Let's commit and merge to main:
 # Commit
 $ git add index.js
 $ git commit -m "feat: added snakecase"
+[feat/snakecase ab1e6d5] feat: added snakecase
+ 2 files changed, 173 insertions(+), 1 deletion(-)
+
+# Head back to the target branch
+$ git checkout main
+# Merge into main
+$ git merge feat/snakecase
+Updating 3fd5292..37ed0e0
+Fast-forward
+ index.js  |   1 +
+ 2 files changed, 174 insertions(+), 1 deletion(-)
+```
+
+> Normally in the work setting we would have our pull request made for the merge.
+
+At this point, our target main branch has also differed from our worktree. Let's fix that.
+
+## Rebasing from another worktree
+
+We can rebase from our worktree just like we normally would.
+
+Let's head to our worktree and rebase:
+
+```sh
+# Go back to the linked tree
+$ cd ../demo-git-worktree-estoolkit-migration
+
+# Run the rebase
+$ git rebase main
+Auto-merging index.js
+CONFLICT (content): Merge conflict in index.js
+error: could not apply 8325647... feat: migrated lodash camelCase
+hint: Resolve all conflicts manually, mark them as resolved with
+hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+hint: You can instead skip this commit: run "git rebase --skip".
+hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+hint: Disable this message with "git config advice.mergeConflict false"
+Could not apply 8325647... feat: migrated lodash camelCase
+```
+
+At this point, we have our conflict that we expected from the change.
+
+Let's fix our conflict by using `snakeCase` from `es-toolkit` as well. Our code should look like this:
+
+```js
+const { camelCase, snakeCase } = require("es-toolkit");
+
+function main() {
+  console.log(camelCase("Our crazy big home project"));
+  console.log(snakeCase("Our crazy big feature update"));
+}
+
+main();
+```
+
+Again, we can check it works without the need to re-install anything:
+
+```sh
+# Running the changes
+$ node index.js
+ourCrazyBigHomeProject
+our_crazy_big_feature_update
+```
+
+Perfect! Let's commit.
+
+```sh
+# Add all and commit
+$ git add --all
+$ git commit -m "feat: migrated Lodash snakeCase"
+```
+
+Again, we will merge locally but you'd normally have a pull request for this.
+
+```sh
+# Make sure we commit from within our merge tree
+$ cd ../demo-git-worktree
+$ git merge feat/estoolkit-migration
 ```
 
 ## Further links and resources
